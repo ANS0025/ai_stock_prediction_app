@@ -3,3 +3,7 @@
 .AppleDouble
 .LSOverride
 .env
+
+# Dependency directories
+node_modules/
+dist/
