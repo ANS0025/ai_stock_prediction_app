@@ -1,179 +1,578 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background-color: #f6f6f6;
-}
-
+/* Reset and base styles */
 * {
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+  color: #3c4043;
+  background: #f8f9fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
 header {
-    display: flex;
-    justify-content: center;
-    padding: 1em;
-    background-color: black;
-    max-width: 500px;
-    margin: 0 auto;
+  background: #0080ff;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-header img {
-    width: 340px;
+header h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  letter-spacing: -0.02em;
 }
 
+/* Main content */
 main {
-    display: flex;
-    justify-content: center;
+  flex: 1;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-/* Panels */
-
-.action-panel, .output-panel {
-    line-height: 1.4em;
-    display: flex;
-    height: 350px;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    margin: 1.5em 2em;
-}
-
+/* Panel base styles */
+.action-panel,
+.loading-panel,
 .output-panel {
-    display: none;
-    justify-content: flex-start;
-    border: 2px solid;
-    padding: 1em 2em;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
 }
 
-.loading-panel {
-    display: none;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 400px;
-    text-align: center;
+.action-panel:hover,
+.output-panel:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: #0080ff;
 }
 
-.output-panel p{
-    overflow-y: scroll;
-}
-
-/* text */
-
-h1 {
-    text-align: center;
-    font-weight: 700;
-    font-size: 20px;
-    margin-bottom: 0;
-    color: #ffffff;
-}
-
-h2 {
-    text-align: center;
-    font-weight: 400; 
-    margin-top: -26px;
-    background-color: #f6f6f6;
-    padding: 0 10px;
-    font-size: 18px;
-    margin-bottom: 0;
-}
-
-p.tag-line {
-    font-family: 'Comic Neue';
-    font-weight: 700;
-    font-size: 14px;
-}
-
-.ticker-choice-display {
-    display: flex;
-    align-items: center;
-    height: 3em; 
-}
-
-/* controls */
-
-form {
-    width: 360px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-label {
-    text-align: center;
-    padding: .43em;
-    font-size: 15px;
-    margin-bottom: 1em;
-    width: 80%;
+/* Form styles */
+form label {
+  display: block;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
 }
 
 .form-input-control {
-    display: flex;
-    width: 70%;
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
-input[type="text"] {
-    padding: 1em;
-    border: 2px solid black;
-    border-right: none;
+#ticker-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-family: "Poppins", sans-serif;
+  transition: all 0.2s ease;
+  background: #ffffff;
 }
 
-/* Buttons */
+#ticker-input:focus {
+  outline: none;
+  border-color: #0080ff;
+  box-shadow: 0 0 0 3px rgba(0, 128, 255, 0.1);
+}
+
+#ticker-input::placeholder {
+  color: #9ca3af;
+}
 
 .add-ticker-btn {
-    display: flex;
-    align-items: center;
-    background-color: #ffffff;
-    font-size: 3em;
-    padding: 0 .35em;
-    cursor: pointer;
-    border: 2px solid;
+  padding: 0.75rem 1rem;
+  background: #0080ff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+}
+
+.add-ticker-btn:hover {
+  background: #0066cc;
+  transform: translateY(-1px);
+}
+
+.add-ticker-btn:active {
+  transform: translateY(0);
 }
 
 .add-ticker-svg {
-    width: 14px;
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) invert(1);
 }
 
+/* Ticker display */
+.ticker-choice-display {
+  background: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 1rem;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ticker-choice-display:not(:empty) {
+  background: #eff6ff;
+  border-color: #0080ff;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+/* Generate button */
 .generate-report-btn {
-    width: 70%;
-    padding: 1em 1.5em;
-    cursor: pointer;
-    font-family: 'Poppins', sans;
-    border: 2px solid #000000;
-    background-color: #46ff90;
-    text-transform: uppercase;
-    font-weight: 500;
-    letter-spacing: .09em;
-    font-size: 105%;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 1rem;
 }
 
-/* ticker display (ensure comma separated) */
-
-.ticker {
-    margin: 0 .1em;
-    content: '';
+.generate-report-btn:hover:not(:disabled) {
+  background: #059669;
+  transform: translateY(-1px);
 }
 
-.ticker:after {
-    content: ',';
+.generate-report-btn:disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
 }
 
-.ticker:last-child::after {
-    content: '';
+/* Tag line */
+.tag-line {
+  text-align: center;
+  font-style: italic;
+  color: #6b7280;
+  font-size: 0.75rem;
+  background: #fef3c7;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #fbbf24;
 }
 
-/* footer */
+/* Loading panel */
+.loading-panel {
+  text-align: center;
+  display: none;
+  background: #ffffff;
+  border-color: #0080ff;
+}
 
+.loading-panel.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+.loading-panel img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+  animation: spin 2s linear infinite;
+}
+
+#api-message {
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+/* Output panel - FIXED LAYOUT */
+.output-panel {
+  display: none;
+  /* Ensure proper block layout */
+  flex-direction: column;
+}
+
+.output-panel.active {
+  display: flex; /* Changed from block to flex for better control */
+  animation: slideUp 0.3s ease;
+}
+
+.output-panel h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0; /* Fixed margin to ensure spacing below */
+  text-align: center;
+  padding: 0 0 1rem 0;
+  border-bottom: 2px solid #0080ff;
+  /* Removed position relative and top properties that were causing issues */
+  display: block; /* Ensure it's a block element */
+  width: 100%; /* Take full width */
+  flex-shrink: 0; /* Prevent shrinking in flex container */
+}
+
+/* Ensure report content appears below heading */
+.output-panel .report-content {
+  margin-top: 0;
+  padding-top: 0;
+  flex: 1; /* Take remaining space */
+}
+
+/* Report content styling */
+.output-panel p {
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+  color: #374151;
+  font-size: 0.9rem;
+  display: block; /* Ensure paragraphs are block elements */
+  width: 100%; /* Take full width */
+}
+
+.output-panel p:last-child {
+  margin-bottom: 0;
+}
+
+/* Stock price highlighting */
+.output-panel .stock-price {
+  background: #eff6ff;
+  color: #0080ff;
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-family: "Monaco", "Menlo", monospace;
+}
+
+/* Stock ticker highlighting */
+.output-panel .stock-ticker {
+  background: #f3f4f6;
+  color: #1f2937;
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-family: "Monaco", "Menlo", monospace;
+  font-size: 0.875rem;
+}
+
+/* Report sections */
+.report-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border-left: 3px solid #0080ff;
+}
+
+.report-section h3 {
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* Financial metrics styling */
+.metric {
+  display: inline-block;
+  margin: 0.25rem 0.5rem 0.25rem 0;
+}
+
+.metric-label {
+  color: #6b7280;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.metric-value {
+  display: block;
+  color: #1f2937;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.metric-positive {
+  color: #10b981;
+}
+
+.metric-negative {
+  color: #ef4444;
+}
+
+/* Highlight important text */
+.highlight {
+  background: #fef3c7;
+  padding: 0.125rem 0.25rem;
+  border-radius: 3px;
+  color: #92400e;
+  font-weight: 500;
+}
+
+/* Footer */
 footer {
-    font-size: 14px;
-    text-align: center;
+  background: #ffffff;
+  padding: 1rem 2rem;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+  margin-top: auto;
 }
 
-/* stop ugly scroll bar on some browsers */
-.output-panel p::-webkit-scrollbar {
-    display: none;
+/* DigitalOcean-style components */
+.action-panel {
+  position: relative;
 }
 
-.output-panel p::-moz-scrollbar {
-    display: none;
+.action-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #0080ff;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Alert/notification styles */
+.alert {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.alert-info {
+  background: #eff6ff;
+  border: 1px solid #93c5fd;
+  color: #1e40af;
+}
+
+.alert-success {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #166534;
+}
+
+.alert-warning {
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  color: #92400e;
+}
+
+/* Badge/chip styles for tickers */
+.ticker-badge {
+  display: inline-block;
+  background: #0080ff;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin: 0.25rem;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.875rem;
+}
+
+th {
+  background: #f8f9fa;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* Button variants */
+.btn-secondary {
+  background: #ffffff;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.btn-secondary:hover {
+  background: #f8f9fa;
+  border-color: #0080ff;
+}
+
+/* Report text formatting */
+.report-text {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #374151;
+  margin-bottom: 1.25rem;
+}
+
+.report-text:last-child {
+  margin-bottom: 0;
+}
+
+/* Auto-format stock mentions */
+.report-text strong {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* Improve readability for long reports */
+.output-panel {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.output-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.output-panel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.output-panel::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+.output-panel::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.text-blue {
+  color: #0080ff;
+}
+
+.text-green {
+  color: #10b981;
+}
+
+.text-red {
+  color: #ef4444;
+}
+
+.text-gray {
+  color: #6b7280;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  header {
+    padding: 1rem;
+  }
+
+  header h1 {
+    font-size: 1.75rem;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+  .action-panel,
+  .loading-panel,
+  .output-panel {
+    padding: 1.5rem;
+  }
+
+  .form-input-control {
+    flex-direction: column;
+  }
+
+  .add-ticker-btn {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .action-panel,
+  .loading-panel,
+  .output-panel {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
 }
